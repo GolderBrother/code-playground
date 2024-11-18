@@ -1,0 +1,11 @@
+
+{
+  "imports": {
+    "vue": "https://esm.sh/vue@latest",
+    "ant-design-vue": "https://esm.sh/ant-design-vue@4.0.3",
+    "@arco-design/web-vue": "https://esm.sh/@arco-design/web-vue?deps=vue@latest",
+    "@arco-design/web-vue/": "https://esm.sh/@arco-design/web-vue/",
+    "@tencent/delta-component": "https://delta-component.woa.com/delta-component/dist/delta-component.es.js",
+    "@tencent/delta-component/": "https://delta-component.woa.com/delta-component/"
+  }
+}

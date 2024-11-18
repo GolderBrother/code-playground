@@ -1,0 +1,164 @@
+<script setup lang="ts">
+import { ref, Ref, onMounted, watch, unref } from "vue";
+import { store } from "@/store";
+import { modulesKey, exportKey, dynamicImportKey, MapFile } from "@/constant";
+import { Compiler } from "@/compiler";
+import {
+  Hooks,
+  ComplierPluginParams,
+  ComplierPluginResult,
+} from "@/compiler/type";
+
+interface IframeWindow extends Window {
+  process: Record<string, any>;
+  [modulesKey]: Record<string, any>;
+  [exportKey]: Function;
+  [dynamicImportKey]: Function;
+  __next__: Function;
+}
+
+const errors = ref<string[]>([]);
+const previewDOM = ref() as Ref<HTMLDivElement>;
+const iframe = ref<HTMLIFrameElement>();
+
+const erudaPlugin = (hooks: Hooks) => {
+  if (store.showEruda === false) {
+    return;
+  }
+  hooks.hook(
+    "before-emit",
+    (_: ComplierPluginParams, items: ComplierPluginResult) => {
+      items.modules.unshift(
+        `import eruda from 'https://esm.sh/eruda@3.0.1';
+if (window.__eruda) {
+  window.__eruda.destroy();
+}
+window.__eruda = eruda;
+eruda.init();`.trim()
+      );
+    }
+  );
+
+  hooks.hook("after-emit", () => {
+    if (iframe.value?.contentWindow?.__eruda) {
+      if (store.openConsole) {
+        iframe.value.contentWindow.__eruda.show();
+      }
+      iframe.value.contentWindow.__eruda._entryBtn._events.click.push(() => {
+        // eruda transition is 0.3s
+        setTimeout(() => {
+          const devtools =
+            iframe.value?.contentWindow?.__eruda?._shadowRoot?.querySelector?.(
+              ".eruda-dev-tools"
+            ) as any;
+          const display = devtools.computedStyleMap()?.get?.("display")?.value;
+          store.openConsole = display === "block";
+        }, 300);
+      });
+    }
+  });
+};
+
+const compiler = new Compiler({
+  plugins: [erudaPlugin],
+  vueVersion: store.vueVersion,
+});
+
+onMounted(() => {
+  renderSandbox();
+});
+
+// watch edit file
+watch(
+  () => [store.activeFile, store.files[store.activeFile]?.code],
+  (newV, oldV) => {
+    if (newV?.[0] !== oldV?.[0]) {
+      return;
+    }
+    if (store.activeFile === MapFile) {
+      renderSandbox();
+    } else {
+      refreshSandbox();
+    }
+  },
+  { deep: true }
+);
+
+// watch add a new file or delete a file
+watch(
+  () => store.files,
+  (newV, oldV) => {
+    const newFiles = Object.keys(newV).sort();
+    const oldFiles = Object.keys(newV).sort();
+    if (
+      newFiles.length === oldFiles.length &&
+      newFiles.every((file, index) => file === oldFiles[index])
+    ) {
+      return;
+    }
+    refreshSandbox();
+  },
+  { deep: true }
+);
+
+watch(() => store.rerenderID, renderSandbox);
+
+async function renderSandbox() {
+  try {
+    if (!previewDOM.value) {
+      return;
+    }
+
+    // 建立一个新的 iframe
+    iframe.value?.remove();
+    iframe.value = document.createElement("iframe");
+    iframe.value.className = "codeplayground-iframe";
+    previewDOM.value.append(iframe.value);
+
+    // 捕获 iframe 中的错误
+    const result = { errors: [] };
+    iframe.value.onload = () => {
+      console.error(`iframeWindow onload`);
+      const iframeWindow = iframe.value.contentWindow;
+
+      // 捕获 iframe 中的 JavaScript 错误
+      iframeWindow.onerror = (message, source, lineno, colno, error) => {
+        const errorMessage = `Error: ${message} at ${source}:${lineno}:${colno}`;
+        console.error(`iframeWindow onerror`, errorMessage);
+        result.errors.push(errorMessage);
+        return true; // 防止错误被进一步传播
+      };
+    };
+    await compiler.run({
+      fileMap: store.files,
+      result,
+      entry: store.entry,
+      iframe: iframe.value as HTMLIFrameElement,
+      render: true,
+    });
+    errors.value = result.errors;
+  } catch (error) {
+    console.error(`renderSandbox`, renderSandbox);
+  }
+}
+
+async function refreshSandbox() {
+  if (!previewDOM.value) {
+    return;
+  }
+  // 建立一个新的 iframe
+  const result = { errors: [] };
+  await compiler.run({
+    fileMap: store.files,
+    result,
+    entry: store.entry,
+    iframe: iframe.value as HTMLIFrameElement,
+    render: false,
+  });
+  errors.value = result.errors;
+}
+</script>
+
+<template>
+  <div class="codeplayground-iframe-container" ref="previewDOM"></div>
+</template>

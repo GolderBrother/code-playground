@@ -1,0 +1,56 @@
+@import './base.less';
+
+.codeplayground-theme-light {
+  --codeplayground-filebar-bgc: @neutral-white;
+  --codeplayground-toolbar-bgc: @neutral-white;
+  --codeplayground-main-color: @neutral-10;
+  --codeplayground-tertiary-color: @neutral-5;
+  --codeplayground-text-secondary: @text-color-secondary;
+  --codeplayground-active-file-bgc: rgba(0, 0, 0, 0.08);
+  --codeplayground-active-file-color: @brand-6;
+  --codeplayground-brand: @brand-6; // 主色
+  --codeplayground-brand-active: @brand-7; // active
+  --codeplayground-brand-hover: @brand-5; // hover
+  --codeplayground-copy-icon-color: @neutral-1;
+  --codeplayground-border-color: @border-color;
+  --codeplayground-float-bgc: @neutral-2;
+  --codeplayground-menu-color: @text-color;
+  --codeplayground-menu-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16),
+    0px 0px 15px rgba(0, 0, 0, 0.12), 0px 0px 25px rgba(0, 0, 0, 0.08);
+  --codeplayground-copy-shadow: 0px 0px 2px rgba(0, 0, 0, 0.16),
+    -2px 2px 8px rgba(0, 0, 0, 0.12), -4px 4px 12px rgba(0, 0, 0, 0.08);
+  .tippy-box {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16),
+      0px 0px 15px rgba(0, 0, 0, 0.12), 0px 0px 25px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.codeplayground-theme-dark {
+  --codeplayground-filebar-bgc: rgb(37, 37, 38);
+  --codeplayground-toolbar-bgc: rgb(22, 22, 22);
+  --codeplayground-main-color: @neutral-3;
+  --codeplayground-text-secondary: @neutral-4;
+  --codeplayground-tertiary-color: @neutral-6;
+  --codeplayground-active-file-bgc: rgba(0, 0, 0, 0.5);
+  --codeplayground-active-file-color: @brand-6;
+  --codeplayground-brand: @dark-brand-6; // 主色
+  --codeplayground-brand-active: @dark-brand-7; // active
+  --codeplayground-brand-hover: @dark-brand-5; // hover
+  --codeplayground-copy-icon-color: #282828;
+  --codeplayground-border-color: @dark-neutral-6;
+  --codeplayground-float-bgc: #282828;
+  --codeplayground-menu-color: @neutral-4;
+  --codeplayground-menu-shadow: 0px 0px 10px rgba(0, 0, 0, 0.56),
+    0px 0px 15px rgba(0, 0, 0, 0.48), 0px 0px 25px rgba(0, 0, 0, 0.32);
+  --codeplayground-copy-shadow: -10px 10px 10px rgba(0, 0, 0, 0.56),
+    -15px 15px 15px rgba(0, 0, 0, 0.48), -25px 25px 25px rgba(0, 0, 0, 0.32);
+  .tippy-box {
+    background-color: #282828;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.56),
+      0px 0px 15px rgba(0, 0, 0, 0.48), 0px 0px 25px rgba(0, 0, 0, 0.32);
+  }
+}
+
+.monaco-editor {
+  width: 100% !important;
+}

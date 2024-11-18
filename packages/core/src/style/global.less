@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.codeplayground-message {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--codeplayground-brand);
+  background-color: @brand-light-bg;
+  border: 1px solid @brand-light-border;
+  border-radius: 4px;
+  z-index: 99999;
+}
+
+.codeplayground-message-info {
+  color: @info;
+  background-color: @info-light-bg;
+  border: 1px solid @info-light-border;
+}
+
+.codeplayground-message-danger {
+  color: @danger;
+  border: 1px solid @danger-light-border;
+  background-color: @danger-light-bg;
+}
+
+.codeplayground-message-success {
+  color: @success;
+  border: 1px solid @success-light-border;
+  background-color: @success-light-bg;
+}
+
+.codeplayground-dialog-mask {
+  font-family: @font-family;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: @bg-mask;
+  z-index: 999999;
+  .codeplayground-dialog {
+    position: absolute;
+    min-width: 300px;
+    max-width: 600px;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: @bg-white;
+    border-radius: 4px;
+    padding: 16px;
+    .codeplayground-dialog-title {
+      margin: 0 0 12px 0;
+      line-height: 24px;
+    }
+    .codeplayground-dialog-close {
+      color: @neutral-9;
+      cursor: pointer;
+      position: absolute;
+      height: 24px;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        color: var(--codeplayground-brand);
+      }
+      &:active {
+        color: var(--codeplayground-brand-active);
+      }
+    }
+    .codeplayground-dialog-content {
+      color: @neutral-9;
+      font-size: 14px;
+    }
+    .codeplayground-dialog-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+      button {
+        box-sizing: border-box;
+        cursor: pointer;
+        padding: @gap-1 @gap-3;
+      }
+      .codeplayground-dialog-button-cancel {
+        margin-right: 8px;
+        background-color: @fill;
+        border-radius: 4px;
+        border: none;
+        &:hover {
+          background-color: @fill-hover;
+        }
+        &:active {
+          background-color: @fill-active;
+        }
+      }
+      .codeplayground-dialog-button-confirm {
+        margin-right: 8px;
+        background-color: var(--codeplayground-brand);
+        border-radius: 4px;
+        color: @text-color-white;
+        border: none;
+        &:hover {
+          background-color: var(--codeplayground-brand-hover);
+        }
+        &:active {
+          background-color: var(--codeplayground-brand-active);
+        }
+      }
+    }
+  }
+}
+
+.tippy-content {
+  padding: 4px 8px !important;
+  font-size: 12px;
+}
+.tippy-arrow {
+  width: 8px;
+  height: 8px;
+}
