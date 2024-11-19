@@ -43,6 +43,11 @@ export interface CodePlaygroundOptions {
    */
   activeFile?: string;
   /**
+   * @description_en Entry file code
+   * @description_zh 初始化展示的代码
+   */
+  code?: string;
+  /**
    * @description_en Initialization files JSON string, format: Record<filename, code>
    * @description_zh 初始化文件 map，格式为：Record<filename, code>
    */

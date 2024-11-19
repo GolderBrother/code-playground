@@ -11,7 +11,7 @@ import CodeEditor from './monaco-editor/index.vue';
 import Preview from './preview/index.vue';
 import Loading from './loading/index.vue';
 
-const props = defineProps<{ options?: CodePlaygroundOptions }>();
+const props = defineProps<{ options?: CodePlaygroundOptions; }>();
 
 const loaded = ref(false);
 
@@ -112,7 +112,7 @@ watch(
             :showRight="store.reverse ? store.showCode : store.showPreview"
           >
             <template v-slot:[CodeSlotName]>
-              <CodeEditor />
+              <CodeEditor :code="options?.code" />
             </template>
             <template v-slot:[PreviewSlotName]>
               <Preview />

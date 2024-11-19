@@ -30,7 +30,6 @@ export class Compiler {
   }
 
   async run(params: ComplierPluginParams) {
-    debugger;
     // before-transform
     await this.hooks.callHook('before-transform', params);
     // transform

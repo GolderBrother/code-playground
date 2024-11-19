@@ -26,7 +26,12 @@ import CopyIcon from '@/components/toolbar/icons/copy.vue';
 const containerRef = ref<HTMLDivElement>();
 const ready = ref(false);
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor>();
-
+  interface IProps {
+	code?: string;
+}
+  const props = withDefaults(defineProps<IProps>(), {
+    code: ''
+});
 initMonaco(store);
 
 const lang = computed(() =>
@@ -147,6 +152,17 @@ onMounted(async () => {
       editorInstance.updateOptions({
         fontSize: store.codeSize,
       });
+    },
+    {
+      immediate: true,
+    }
+  );
+
+  watch(
+    () => props.code,
+    (code) => {
+      // 暂时写死
+      if (store.activeFile === 'App.vue') store.files[store.activeFile].code = code;
     },
     {
       immediate: true,

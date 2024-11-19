@@ -15,7 +15,6 @@ async function emitHtml(
   params: ComplierPluginParams,
   result: ComplierPluginResult
 ) {
-  debugger;
   try {
     const { iframe, render, fileMap } = params;
     const importMap = fileMap[MapFile].code;
