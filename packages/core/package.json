@@ -1,5 +1,5 @@
 {
-  "name": "@tencent/delta-codeplayground",
+  "name": "codeplayground",
   "version": "0.3.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

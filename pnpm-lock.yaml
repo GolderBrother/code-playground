@@ -122,7 +122,7 @@ importers:
 
   packages/website:
     dependencies:
-      '@tencent/delta-codeplayground':
+      codeplayground:
         specifier: workspace:^
         version: link:../core
       path-browserify:

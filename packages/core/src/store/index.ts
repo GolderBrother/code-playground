@@ -58,7 +58,7 @@ export const store = reactive<Store>({
     params.get('document') || 'https://delta-component.woa.com/'
   ),
   github: decodeURIComponent(
-    params.get('github') || 'https://git.woa.com/jamesezhang/code-playground'
+    params.get('github') || 'https://github.com/GolderBrother/code-playground'
   ),
 });
 

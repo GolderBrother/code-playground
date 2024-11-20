@@ -39,7 +39,7 @@ export default defineConfig({
       { text: '在线体验', link: 'https://delta-component.woa.com', target: '_blank' },
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://git.woa.com/jamesezhang/code-playground' },
+      { icon: 'github', link: 'https://github.com/GolderBrother/code-playground' },
     ],
   },
   // locales: {
