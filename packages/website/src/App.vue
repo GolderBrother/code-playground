@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import CodePlayground, { CodePlaygroundOptions } from 'codeplayground';
+import CodePlayground, { CodePlaygroundOptions } from '@tencent/delta-codeplayground';
 // app 入口文件名
 import AppContent from './template/vue3/App.vue?raw'
 

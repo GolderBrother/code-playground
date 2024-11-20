@@ -9,6 +9,7 @@ export interface Store {
   entry: string;
   activeFile: string;
   files: Record<string, File>;
+  mode: 'edit' | 'preview';
   showFileBar: boolean;
   showCode: boolean;
   showPreview: boolean;
@@ -33,6 +34,7 @@ export const store = reactive<Store>({
   // 文件系统相关
   entry: decodeURIComponent(params.get('params') || 'index.html'),
   files: {},
+  mode: 'edit',
   activeFile: decodeURIComponent(params.get('activeFile') || ''),
   showFileBar: params.get('showFileBar') !== 'false',
   showCode: params.get('showCode') !== 'false',
@@ -56,7 +58,7 @@ export const store = reactive<Store>({
     params.get('document') || 'https://delta-component.woa.com/'
   ),
   github: decodeURIComponent(
-    params.get('github') || 'https://git.woa.com/jamesezhang/codeplayground'
+    params.get('github') || 'https://git.woa.com/jamesezhang/code-playground'
   ),
 });
 

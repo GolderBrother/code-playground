@@ -122,8 +122,8 @@ importers:
 
   packages/website:
     dependencies:
-      codeplayground:
-        specifier: workspace:*
+      '@tencent/delta-codeplayground':
+        specifier: workspace:^
         version: link:../core
       path-browserify:
         specifier: ^1.0.1

@@ -48,6 +48,11 @@ export interface CodePlaygroundOptions {
    */
   code?: string;
   /**
+   * @description_en edit or preview mode
+   * @description_zh 编辑模式或者预览模式
+   */
+  mode?: 'edit' | 'preview'
+  /**
    * @description_en Initialization files JSON string, format: Record<filename, code>
    * @description_zh 初始化文件 map，格式为：Record<filename, code>
    */

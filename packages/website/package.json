@@ -30,7 +30,7 @@
     "vue-tsc": "^1.0.24"
   },
   "dependencies": {
-    "codeplayground": "workspace:*",
+    "@tencent/delta-codeplayground": "workspace:^",
     "path-browserify": "^1.0.1",
     "tippy.js": "^6.3.7"
   }

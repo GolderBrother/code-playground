@@ -88,40 +88,46 @@ watch(
     immediate: true,
   }
 );
+const isPreviewMode = computed(() => props.options?.mode === 'preview')
 </script>
 
 <template>
   <div class="codeplayground-container">
-    <Toolbar />
-    <div class="main-content main-content-top">
-      <Splitter
-        min="140px"
-        max="300px"
-        initSplit="160px"
-        :showLeft="store.showFileBar"
-      >
-        <template #left>
-          <FileBar />
-        </template>
-        <template #right>
-          <Splitter
-            class="main-splitter"
-            min="0%"
-            max="100%"
-            :showLeft="store.reverse ? store.showPreview : store.showCode"
-            :showRight="store.reverse ? store.showCode : store.showPreview"
-          >
-            <template v-slot:[CodeSlotName]>
-              <CodeEditor :code="options?.code" />
-            </template>
-            <template v-slot:[PreviewSlotName]>
-              <Preview />
-              <Loading v-if="!loaded" />
-            </template>
-          </Splitter>
-        </template>
-      </Splitter>
-    </div>
+    <template v-if="isPreviewMode">
+      <Preview />
+    </template>
+    <template v-else>
+      <Toolbar />
+      <div class="main-content main-content-top">
+        <Splitter
+          min="140px"
+          max="300px"
+          initSplit="160px"
+          :showLeft="store.showFileBar"
+        >
+          <template #left>
+            <FileBar />
+          </template>
+          <template #right>
+            <Splitter
+              class="main-splitter"
+              min="0%"
+              max="100%"
+              :showLeft="store.reverse ? store.showPreview : store.showCode"
+              :showRight="store.reverse ? store.showCode : store.showPreview"
+            >
+              <template v-slot:[CodeSlotName]>
+                <CodeEditor :code="options?.code" />
+              </template>
+              <template v-slot:[PreviewSlotName]>
+                <Preview />
+                <Loading v-if="!loaded" />
+              </template>
+            </Splitter>
+          </template>
+        </Splitter>
+      </div>
+    </template>
   </div>
 </template>
 
